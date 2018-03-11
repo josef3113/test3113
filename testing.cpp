@@ -1,43 +1,92 @@
+//
+//
+//#include <iostream>
+//#include <vector>
+//#include <list>
+//#include <deque>
+//
+// void main ()
+// {
+//	 std::vector <int> v;
+//	 v.push_back(5);
+//	 std::list <double> ld;
+//	 ld.push_front(2.1);
+//	 ld.push_front(1.1);
+//	 std::cout<<*ld.begin();
+//	
+// }
+//
 //#include <iostream>
 //using namespace std;
 //
-//class Test
+//class A
 //{
+//protected: 
+//	int x;
 //public:
-//	Test() { cout << "Hello from Test() "; }
-//} a;
+//	A() { cout << "A born"; }
+//	virtual ~A() { cout<<"dis A"<<endl;}
+//};
+//
+//class B :public A	//if inheretance is not public base class cant be pointer to derive "ki rozim lehachbie et ze"
+//{
+//	void foo()
+//	{
+//		this->x=0;
+//	}
+//
+//public:
+//	B(){cout<<" B"<<endl;}
+//	~B(){cout<<"dis B"<<endl;}
+//
+//};
+//
+//class C :public B
+//{
+//	void foo()
+//	{
+//		this->x=8;
+//	}
+//public:
+//	C(){cout<<" C"<<endl;}
+//	~C(){cout<<"dis C"<<endl;}
+//};
 //
 //int main()
 //{
-//	cout << "Main Started ";
-//	int x;
-//	cin>>x;
+//	A * ptra =new A;
+//
+//	//cout<<dynamic_cast <C *> (ptrc); //return 0!	 // dynamic casting need to be pointer to pointer --to check if the value that in () can be "muzba al yedi " pointer type that in <>
+//
+//	cout<< dynamic_cast <A*> (ptra);
+//	delete ptra;
 //	return 0;
 //}
-
+//
 //#include<iostream>
 //using namespace std;
 //class Point {
 //    int x;
 //public:
-//    Point(int x) { this->x = x; }
-//    Point( const Point &  p) { x = p.x;}
+//    Point(int x=0) { this->x = x; }
+//    Point(  Point &  p) { x = p.x;}	 //dont must be const but must be ref
 //    int getX() { return x; }
 //};
 //
 //int main()
 //{
-//   Point p1(10);
-//   Point p2 = p1;
+//   Point p1();
+//   
+//   Point p2 = Point();
 //   cout << p2.getX();
 //
 //   system("pause");
 //   return 0;
 //}
-
+//
 //#include<iostream>
 //using namespace std;
-
+//
 //class Test
 //{
 //public:
@@ -59,7 +108,7 @@
 //
 //    return 0;
 //}
-
+//
 //#include<iostream>
 //using namespace std;
 //int x = 1;
@@ -91,10 +140,10 @@
 //};
 //int main()
 //{
-//   vector <a*> *v1  = new vector<a*>;
+//   vector <a*> *v1  = new vector<a*> [5];
 //   vector <a> *v2  = new vector<a>;
-//
-//   delete v1;
+//   
+//   delete[] v1;
 //   delete v2;
 //   _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 //   return 0;
@@ -105,12 +154,12 @@
 //#include <stdio.h>
 //int main()
 //{
-//   const int x;	 // value const must be declure in time !!
+//   const int x=10;	 // value const must be declure in time !!
 //   //x = 10;
 //   printf("%d", x);
 //   return 0;
 //}
-
+//
 //#include <iostream>
 //using namespace std;
 // 
@@ -118,9 +167,10 @@
 //{
 //private:
 //    int x;
+//	int & ref;							  
 //public:
-//    A(int _x = 0)  {  x = _x; }
-//    int get()  { return x; }
+//    A(int _x = 0):ref(x)  {cout<<"A";  x = _x; }
+//    int get()  { return ref; }
 //};
 //
 //class B
@@ -135,11 +185,11 @@
 //A B::a(0);	 //must be initialization like that ==becouse a is static in B 
 //int main(void)
 //{
-//    B b;
-//    cout << b.get();
+//    //B b;
+//   // cout << B::get();
 //    return 0;
 //}
-
+//
 //
 //#include<iostream>
 //using namespace std;
@@ -148,25 +198,36 @@
 //{
 //private:
 //	//static
-//     int count;
+//      int count;
+//	   int &   ref;
 //public:
-//	Test(){count=0;}
-//    Test& fun(); 
+//	Test():ref(count){count=0;}
+//    void fun()const;
+//
+//	static void fun(int*){}	//static no diffrent betwwen function
+//	//void fun(int [])const{}
 //};
 // 
 ////int Test::count = 0;
 // 
-//Test& Test::fun()
-//{
-//    Test::count++;
-//    cout << Test::count << " ";
-//    return *this;
-//}
+//void Test::fun()const 
+//	{
+//   // count++;
+//	ref++;
+//    cout << count << " ";
+//    
+//} 
+//
 // 
 //int main()
 //{
-//    Test t;
-//    t.fun().fun().fun().fun();
+//	Test t;
+//	const Test r;
+//	cout<< sizeof(r)<<endl;
+//	//r.fun();
+//	//r.fun();
+//	//t.fun();
+//    
 //    return 0;
 //}
 
@@ -174,13 +235,17 @@
 //#include <iostream>
 //class Test
 //{
+//	static const int x;
 //public:
-//    static void fun();
+//	
+//    static void fun();	  //function static cannot be const
 //};
 //void Test::fun()   // non !! static void Test == the static/frienf write only in the class!!
 //{
-//    std::cout<<"fun() is static\n";
+//	
+//	std::cout<<"fun() is static\n"<<Test::x;
 //}
+//const int Test::x=0;   // to define static const int in class
 //int main()
 //{
 //    Test::fun();   
@@ -254,43 +319,64 @@
 //    a.show(a,b);
 //    return 0;
 //}
-
+////
 //#include<iostream>
 //using namespace std;
+//
+//class A 
+//{
+//public:
+//	void funA(){}
+//
+//};
+//class B:public A
+//{
+//public:
+//	void fun(){cout<<"t"<<endl;}
+//	
+//};
 //
 //int main()
 //{
 //  const int x = 10;
-//  const int& ref = x;	   // ref must be same type to original object (check about inhertance)
+//  const int& ref = x;	   // ref must be same type to original object//in inheretenc ref its like pointer
 //
+//  B b=B();
+//  A a;
+// 
+//  A & refa = b;
+//  
+//  
+//  
+//  
 //  
 //
 //  cout << ref;
 //  return 0;
 //}
-
-//#include<iostream>
-//using namespace std;
-// 
-//int &fun()
-//{
-//    static int x = 10;
-//    return x;
-//}
-//int main()
-//{
-//    fun() = 30;
-//    cout << fun();
-//	cout << fun();
-//    return 0;
-//}
-//
+/*
+#include<iostream>
+using namespace std;
+ 
+int &fun()
+{
+    static int x = 10;
+    return x;
+}
+int main()
+{
+    fun() = 30;
+    cout << fun();
+	cout << fun();
+    return 0;
+}
+*/
 //#include<iostream>
 //  
 //using namespace std;
 //class P {
 //public:
-//   virtual void print()  { cout <<" Inside P"; }
+//    virtual void print()  { cout <<" Inside P"; }
 //};
 //  
 //class Q : public P {
@@ -310,27 +396,33 @@
 //  r.print();
 //  return 0;
 //}
-
+//
 //#include <iostream>
 ////using namespace std;
 //
 //template <typename T>
-//T max(T x, T y)
+//T maxM(T x, T y)
 //{
 //	return (x > y)? x : y;
 //}
-//
-//template <int ,int >
-//int max(int x, int y)
+
+//template <>
+//int maxM<int>(int x, int y)
 //{
 //	std::cout<<"here";
 //	return (x > y)? x : y;
 //}
+//
+//int maxM(int x, int y)
+//{
+//	std::cout<<"here!! \n";
+//	return (x > y)? x : y;
+//}
 //int main()
 //{
-//	std::cout << max(3, 7) << std::endl;
-//	std::cout << max(3.0, 7.1) << std::endl;
-//	std::cout << max<double>(3, 7.1) << std::endl;		  //when the tamplate fun not "tohem" so you need to say which type you want like <double> 
+//	std::cout << maxM(3, 7) << std::endl; // why is not overloading ??
+//	std::cout << maxM(3.0, 7.1) << std::endl;
+//	std::cout << maxM<double>(3, 7.1) << std::endl;		  //when the tamplate fun not "tohem" so you need to say which type you want like <double> 
 //	return 0;
 //}
 //
@@ -359,12 +451,12 @@
 //    cout << Test<double>::count << endl;   // but now compiler made new !! class Test<double>  so to class test <double> have new statit =0 
 //    return 0;
 //}
-//
+
 //#include <iostream>
 //using namespace std;
 //
-//template < class T, int N>
-// T funM (T arr[], int size)
+//template < class T, int N >
+// T funM (T arr[], int size =5)
 //{
 //    
 //      cout << "Not possible";
@@ -379,8 +471,354 @@
 //{
 //    int arr[] = {12, 3, 14};
 //	arr[0];
-//    cout << funM<int, 3>(arr, 3);  // why funM(arr,3) or funM <int*,3> (arr,3) dont work??
+//    cout << funM<int,3>(arr,3);  // why funM(arr,3) or {funM <int*,3> (arr,3)} dont work??
+//}
+//
+//#include <iostream>
+//using namespace std;
+//
+//template <int i>
+//void fun()
+//{
+////i = 20;
+//static int x=0;
+//
+//cout << x;
+//x++;
+//}
+//
+//int main()
+//{
+//fun<10>();
+//fun<10>();
+//fun<11>();
+//return 0;
 //}
 
 
-///// tamplate Q 8
+/// tamplate Q 8
+//
+//#include<iostream>
+//#include<list>
+//void main()
+//{  
+//	std::list<int> numbers;
+//	numbers.push_back(1);
+//	numbers.push_back(2);
+//	numbers.push_front(3);
+//	std::list<int>::iterator itr = numbers.begin();
+//	++itr; 
+//	numbers.insert(numbers.begin(),++numbers.begin(),numbers.end());
+//	numbers.insert(itr, 4);
+//	numbers.insert(--numbers.end(), 5);
+//	numbers.remove(1);
+//	//printCollection(numbers); 
+//	++itr; 
+//	numbers.erase(itr);
+//	//printCollection(numbers); 
+//	numbers.erase(itr);  
+//}
+//
+//#include <iostream>
+//class X {
+//public:
+//	X(int n) : n(n) { std::cout << "born "<<n<<std::endl;}
+//	~X() { std::cout << n; }
+//private:
+//	int n;
+//};
+//
+//X b(2);
+//void main() {
+//	
+//	
+//	static X a(1);
+//	X c(3);
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//
+//int main()
+//{
+//  const int x = 10;
+//   int& ref = x;	// error compiler
+//
+//  cout << ref;
+//  return 0;
+//}
+
+
+
+
+
+
+
+
+//void main()
+//{
+//	int y=9;
+//	int t=8;
+//	const int*  p=&y;  //  לא ניתן לשנות דרך פי את הערך אבל אפשר לשנות את ואי וגם ניתן לשנות את פי
+//	//*x=10;
+//	y=10;
+//	p=&t;
+//	 
+//	int const * r=&t;
+//
+//	int * const o=&y;	   // המצביע אינו יכול להשתנות אבל התוכן שאליו הוא מצביע כן יכול להשתנות 
+//	*o=t;
+//	
+//
+//
+//	
+//}
+
+
+//#include <stdlib.h>
+//#include <stdio.h>
+//#include <iostream>
+//
+//using namespace std;
+//
+//class Test {
+//public:
+//    void* operator new(size_t size) { return NULL;}
+//    void* operator new[](size_t size) {return NULL;}
+//};
+//
+//int main()
+//{
+//    Test *obj = new Test;
+//    Test *arr = new Test[10];
+//    return 0;
+//}
+//
+//#include<stdlib.h>
+//#include<stdio.h>
+//#include<iostream>
+// 
+//using namespace std;
+// 
+//class Test {
+//    int x;
+//public:
+//    void* operator new(size_t size);
+//    void operator delete(void*);
+//    Test(int i) {
+//        x = i;
+//        cout << "Constructor called \n";
+//    }
+//    ~Test() { cout << "Destructor called \n"; }
+//};
+// 
+// 
+//void* Test::operator new(size_t size)
+//{
+//    void *storage = malloc(size);
+//    cout << "new called \n";
+//    return storage;
+//}
+// 
+//void Test::operator delete(void *p )
+//{
+//    cout<<"delete called \n";
+//    free(p);
+//}
+// 
+//int main()
+//{
+//    Test *m = new Test(5);
+//    delete m;
+//    return 0;
+//}
+
+//#include <iostream>
+//class X
+//{
+//public:
+//	X(int n) : n(n) { }
+//	~X() { std::cout << n;}
+//	void print(){std::cout<<"non const"<<std::endl;}
+//	void print()const {std::cout<<"const"<<std::endl;}
+//private:
+//	int n;
+//};
+//void main()
+//{
+//	const X con(1);
+//	X no(2);
+//
+//	con.print();
+//	no.print();
+//
+//	X b(2);
+//	static X a(1);
+//	X c(3);
+//}
+//
+//class X {};
+//int main()
+//{
+//	int x=5;
+
+
+
+//	int y=7;
+//	 int const * ptr1=&x;
+//	ptr1=&y;
+//	//*ptr1=5;
+//
+//	int  * const ptr2=&x;
+//	*ptr2=8;
+//	//ptr2=&y;
+//	return 0;
+// }
+
+//#include<iostream>
+//
+//class X {
+//public:
+//	X() : x(1), y(1) {std::cout<<"X born"<<std::endl; }
+//	~X(){std::cout<<"X dey"<<std::endl;}
+//	int x;
+//	const int y;
+//	const X& f()
+//	{
+//		return *this;
+//	}
+//	const X& g() const 
+//	{
+//	  return *this;
+//	}
+//};
+//
+//class Y 
+//{
+//public:
+//	X xy;							   
+//	Y(){std::cout<<"Y born"<<std::endl;}
+//	~Y(){std::cout<<"Y dey"<<std::endl;}
+//};
+//
+//int main()
+//{
+//	Y y;;
+//	//X.f().g(); //canot be x.f().f() ==becous f return const X so the object that return can use only whit const function
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//int main()
+//{
+//	std::vector<int> vint;
+//	vint.push_back(0);
+//	vint.insert(vint.begin(),1);
+//	std::sort(vint.begin(),vint.end());	 //sort is not function of vector
+//
+//	std::find(vint.begin(),vint.end(),6);  //find not function of vector
+//	
+//	std::vector<int>::iterator itrint=vint.end();
+//
+//	std::cout<<vint[1]<<std::endl;
+//	return 0;
+//	
+//}
+////
+//#include<iostream>
+//#include <list>
+//int main()
+//{
+//	std::list<double> listdouble;
+//	listdouble.push_front(1.1);
+//	listdouble.push_front(3.1);
+//	listdouble.push_front(2.1);
+//
+//	std::copy(listdouble.begin(), listdouble.end(), listdouble.begin());
+//
+//	//std::sort(listdouble.begin(),listdouble.end()); //not exist in algoritm library!!
+//	listdouble.sort();//sort is algoritm of list !!
+//	std::cout<<*listdouble.begin()<<std::endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include <deque>
+//#include <algorithm>
+//
+//int main()
+//{
+//	std::deque<int> deqint;
+//	deqint.push_back(7);
+//	deqint.push_front(8);
+//	deqint.push_front(6);
+//
+//	deqint.insert(deqint.begin(),9 );
+//
+//	std::sort(deqint.begin(),deqint.end() );	//sort is global function 
+//	std::cout<<deqint[1]<<std::endl;
+//
+//	
+//	return 0;
+//}
+//
+	
+
+//
+//#include<iostream>
+//class A
+//{
+//public:
+//	A(int x){}
+//	~A(){}
+//};
+//class B :public A
+//{
+//	public:
+//	B():A(0){}
+//	~B(){}
+//};
+//int main()
+//{
+//	A* a=new B;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<deque>
+//int main()
+//{
+//	std::deque<int> d;
+//	d.push_back(7);
+//	d.insert(d.begin(),8);
+//	std::cout<<*(--d.end())<<std::endl;
+//	std::cout<<d[0]<<std::endl;
+//}
+
+
+
+//#include<iostream>
+//class A
+//{
+//public:
+//	virtual void print(){std::cout<<"A print";}
+//};
+//class B :public A
+//{
+//	public:
+//	void print(){std::cout<<"B print";}
+//};
+//int main()
+//{
+//	A* a=new B;
+//	a->print();
+//	return 0;
+//}
+//
+
+
+/////////

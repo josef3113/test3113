@@ -1,0 +1,1 @@
+ass A{public: int x;};int main (){	A a;	a.x;	return 0;}
