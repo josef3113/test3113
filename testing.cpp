@@ -800,25 +800,307 @@ int main()
 //}
 
 
-
+//
 //#include<iostream>
 //class A
 //{
 //public:
-//	virtual void print(){std::cout<<"A print";}
+//	 static void print(){std::cout<<"A print";}
 //};
 //class B :public A
 //{
 //	public:
-//	void print(){std::cout<<"B print";}
+//	 static void print(){std::cout<<"B print"; }
+//	 void f (){}
+//	
 //};
 //int main()
 //{
-//	A* a=new B;
-//	a->print();
+//	A a;
+//	a.print();
+//	B b;
+//	b.A::print();
+//
 //	return 0;
 //}
 //
+//
+
+//#include<iostream>
+//using namespace std;
+//
+//class X 
+//{
+//public:
+//	int x;
+//};
+//
+//int main()
+//{
+//	X a = {10};
+//	X b = a;
+//	cout << a.x << " " << b.x;
+//	return 0;
+//}
+
+
+//#include <iostream>
+//using namespace std;
+//
+//class Point
+//{
+//	int x, y;
+//public:
+//Point(const Point &p) { x = p.x; y = p.y; }
+//int getX() { return x; }
+//int getY() { return y; }
+//};
+//
+//int main()
+//{
+//	Point p1;
+//	Point p2 = p1;
+//	cout << "x = " << p2.getX() << " y = " << p2.getY();
+//	return 0;
+//}
+
+
 
 
 /////////
+
+//#include<iostream>
+//struct X {
+//  X() { std::cout << "a"; }
+//  X(const X &x) { std::cout << "b"; }
+//   void operator=(const X &x) {
+//    std::cout << "c";
+//    //return *this;
+//  }
+//};
+//
+//int main() {
+//  X x;
+//  X y(x);
+//  X z = y;
+//  z = x;
+//  return 0;
+//}
+//
+//
+//#include <iostream>
+//
+//class A {
+//public:
+//  virtual void f() { std::cout << "A"; }
+//};
+//
+//class B : public A {
+//public:
+//  void f() { std::cout << "B"; }
+//};
+//
+//void g(A* a) { a->f(); }
+//
+//int main() {
+//  B* b=new B;
+//  g(b);
+//  return 0;
+//}
+//#include<iostream>
+//void f(float) { std::cout << 1; }
+//void f(double) { std::cout << 2; }
+//
+//int main() {
+//  f(2.5);			  //the deful is that double so go to function of double
+//  f(2.5f);
+//}
+//
+//#include<iostream>
+//struct E
+//{
+//  E() { std::cout << "1"; }
+//  E(const E&) { std::cout << "2"; }
+//  ~E() { std::cout << "3"; }
+//};
+//
+//E f()
+//{ 
+// 
+//  return E();   //not work copy constractor
+//}
+//
+//int main()
+//{
+//  f();
+//}
+
+//#include <iostream>
+// class B;
+//class A {
+//public:
+//  A() { std::cout << "A"; }
+//
+//  friend class B;
+//};
+//
+//class B {
+//public:
+//  B() { std::cout << "B"; }
+//  //friend B A::createB();	//eror its need to be after that declare of 
+//};
+//
+//
+//int main() {
+//  A a;
+// // B b = a.createB();
+//}
+
+//#include <iostream>
+//
+//using namespace std;
+//
+//template <class T> void f(T) {
+//  static int i = 0;
+//  cout << ++i;
+//}
+//
+//int main() {
+//  f(2.5);
+//  f(2.5f);
+//  f(1);
+//}
+//#include <iostream>
+//int main() {
+//  int a = 20;
+//  int b = 10;
+//  int x;
+//  x = (a, b);
+//  std::cout << x;
+//}
+
+//#include <iostream>
+//
+//struct E
+//{
+//  E() { std::cout << "1"; }
+//  E(const E&) { std::cout << "2"; }
+//  ~E() { std::cout << "3"; }
+//};
+//
+//E f()
+//{ 
+//  return E();
+//}
+//
+//int main()
+//{
+//  f();
+//}
+
+
+//#include <iostream>
+//
+//struct A {
+//  A() { std::cout << "A"; }
+//  void f()const{}
+//  void g(){}
+//};
+//struct B {
+//  B() { std::cout << "B"; }
+//};
+//
+//class C {
+//public:
+//  C() : a(), b() {}
+//
+//private:
+//  B b;
+//  A a;
+//};
+//
+//int main()
+//{
+//    C();   //OUTPUT: BA   ORDER BY DECLARTION IN CLASS
+//
+//	const A & a=A();
+//	a.f();
+//
+//     A aa;
+//	const A & refr=aa;
+//	aa.g();
+//	
+//}
+//
+//
+//#include <iostream>
+//using namespace std;
+//
+//class A
+//{
+//public:
+//    A(int n) { cout << "A"; }
+//    A(const A &) { cout << "a"; }
+//};
+//
+//class B: public  A
+//{
+//public:
+//    B():A(0) { cout << "B"; }
+//    B(const B & other):A(other) { cout<< "b"; }
+//};
+//
+//int main()
+//{
+//	B b;	//AB
+//	B bb(b);  // ab	    //if not exsist linlist go to defult constractor and if not exsis defult is compilation error
+//	return 0;
+//}
+//
+//
+
+//#include <iostream>
+//
+//struct X {
+//  X() { std::cout << "X"; }
+//};
+//
+//struct Y {
+//  Y(const X &x) { std::cout << "Y"; }
+//  void f() { std::cout << "f"; }
+//};
+//
+//int main() {
+//  Y y(X());
+//  //y.f();
+//}
+//#include<iostream>
+//int main() {
+//  int a = 10;
+//  int b = 20;
+//  int x;
+//  x = a, b;
+//  std::cout << x<<b;
+//}
+
+//#include <iostream>
+//
+//template <class T> void f(T &i) { std::cout << 1; }
+//
+//template <> void f(const int   &i) { std::cout << 2; }   //// why its not like const A& a ??
+//
+//int main() {
+//   int i = 42;
+//  f(i);
+//}
+
+
+//#include <vector>
+//#include <iostream>
+//using namespace std;
+//
+//int main() {
+//  std::vector<int> delimiters = { 1, 2 };   //NOT legall !!
+//  cout << delimiters[0];
+//}
+
