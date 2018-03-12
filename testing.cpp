@@ -805,25 +805,23 @@ int main()
 //class A
 //{
 //public:
+//	   static void Test (){A::print();std::cout<<"h";}
 //	 static void print(){std::cout<<"A print";}
-//};
-//class B :public A
-//{
-//	public:
-//	 static void print(){std::cout<<"B print"; }
-//	 void f (){}
+//	 
 //	
 //};
+//
 //int main()
 //{
 //	A a;
 //	a.print();
-//	B b;
-//	b.A::print();
+//	a.Test();
+//	
+//	
 //
 //	return 0;
 //}
-//
+
 //
 
 //#include<iostream>
@@ -837,7 +835,7 @@ int main()
 //
 //int main()
 //{
-//	X a = {10};
+//	X a = {10};	//not work 
 //	X b = a;
 //	cout << a.x << " " << b.x;
 //	return 0;
@@ -1090,7 +1088,7 @@ int main()
 //template <> void f(const int   &i) { std::cout << 2; }   //// why its not like const A& a ??
 //
 //int main() {
-//   int i = 42;
+//  const int i = 42;
 //  f(i);
 //}
 
@@ -1102,5 +1100,133 @@ int main()
 //int main() {
 //  std::vector<int> delimiters = { 1, 2 };   //NOT legall !!
 //  cout << delimiters[0];
+//}
+//
+//#include <iostream>
+//
+//class A {
+//  int foo ;
+//
+//public:
+//	A():foo(0){}
+//  int& getFoo() { return foo; }
+//  void printFoo() { std::cout << foo; }
+//};
+//
+//int main() {
+//  A a;
+//
+//  int  bar=a.getFoo();
+//  ++bar;
+//
+//  a.printFoo();
+//}
+//
+
+//#include <iostream>
+//#include <vector>
+//
+//int main() {
+//  std::vector<int> v1(6,2);	 //  v1;made vectot empty v1(5) made vector whit 5 zeros v1(5,8) made vector whit size 5 and all valuse =8 
+//  //std::vector<int> v2{ 1, 2 };
+//  std::cout << v1.size() << std::endl;
+//}
+
+//#include <iostream>
+//using namespace std;
+//
+//int foo() {
+//	static int n=0;
+//  cout << n;
+//  return ++n;
+//}
+//
+//void bar(int i = foo()) {}
+//
+//int main() {
+//  bar();
+//  bar();
+//}
+
+//#include <iostream>
+//
+//struct A {
+//  virtual std::ostream &put(std::ostream &o) const {
+//    return o << 'A';
+//  }
+//};
+//
+//struct B : A {
+//  virtual std::ostream &put(std::ostream &o) const {
+//    return o << 'B';
+//  }
+//};
+//
+//std::ostream &operator<<(std::ostream &o, const A &a) {
+//  return a.put(o);
+//}
+//
+//int main() {
+//  B b;
+//  std::cout << b;
+//}
+
+
+//#include <iostream>
+//
+//struct X {
+//  X() { std::cout << "X"; }
+//};
+//
+//struct Y {
+//  Y(const X &x) { std::cout << "Y"; }
+//  void f() { std::cout << "f"; }
+//};
+//
+//int main() {
+//  X();
+//}
+
+
+//#include <iostream>
+//
+//struct GeneralException {
+//  virtual void print() { std::cout << "G"; }
+//};
+//
+//struct SpecialException : public GeneralException {
+//  void print() override { std::cout << "S"; }
+//};
+//
+//void f() { throw SpecialException(); }
+//
+//int main() {
+//  try {
+//    f();
+//  }
+//  catch (GeneralException & e) {
+//    e.print();
+//  }
+//}
+
+//#include <iostream>
+//
+// int a=1;
+//
+//int main() {
+//  std::cout << (a + a);
+//}
+
+//#include <iostream>
+//struct X {
+//  X() { std::cout << "X"; }
+//};
+//
+//int main()
+//{ 
+//	X xx;
+//    X;
+//	X();
+//	X x(); 
 //}
 
